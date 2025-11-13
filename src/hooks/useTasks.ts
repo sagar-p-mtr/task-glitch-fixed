@@ -71,7 +71,13 @@ export function useTasks(): UseTasksState {
         const data = (await res.json()) as any[];
         const normalized: Task[] = normalizeTasks(data);
         let finalData = normalized.length > 0 ? normalized : generateSalesTasks(50);
-        if (isMounted) setTasks(finalData);
+        
+        // Deduplicate tasks by ID to prevent duplicates
+        const uniqueTasks = Array.from(
+          new Map(finalData.map(task => [task.id, task])).values()
+        );
+        
+        if (isMounted) setTasks(uniqueTasks);
       } catch (e: any) {
         if (isMounted) setError(e?.message ?? 'Failed to load tasks');
       } finally {
@@ -81,7 +87,12 @@ export function useTasks(): UseTasksState {
         }
       }
     }
-    load();
+    
+    // Only load if not already loaded
+    if (!fetchedRef.current) {
+      load();
+    }
+    
     return () => {
       isMounted = false;
     };
