@@ -141,13 +141,10 @@ export function useTasks(): UseTasksState {
   }, []);
 
   const deleteTask = useCallback((id: string) => {
-    setTasks(prev => {
-      const target = prev.find(t => t.id === id) || null;
-      // Set lastDeleted outside to avoid state update batching issues
-      requestAnimationFrame(() => setLastDeleted(target));
-      return prev.filter(t => t.id !== id);
-    });
-  }, []);
+    const target = tasks.find(t => t.id === id) || null;
+    setLastDeleted(target);
+    setTasks(prev => prev.filter(t => t.id !== id));
+  }, [tasks]);
 
   const undoDelete = useCallback(() => {
     if (!lastDeleted) return;
