@@ -26,14 +26,12 @@
 
 ### GitHub Repository
 ```
-[TO BE FILLED: Add your GitHub repo URL here after pushing]
-https://github.com/YOUR_USERNAME/task-glitch-fixed
+https://github.com/sagar-p-mtr/task-glitch-fixed
 ```
 
 ### Live Deployment
 ```
-[TO BE FILLED: Add your deployment URL after deploying]
-https://your-app.vercel.app
+https://task-glitch-fixed-mauve.vercel.app
 ```
 
 ---
